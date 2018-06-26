@@ -1,0 +1,297 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1"
+ http-equiv="content-type">
+  <title>Use Case Model</title>
+</head>
+<body>
+<div style="text-align: center;"><big><big><big>Revision History</big></big></big><br>
+</div>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top; text-align: center;"><span
+ style="font-weight: bold;">Date</span><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><span
+ style="font-weight: bold;">Issue</span><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><span
+ style="font-weight: bold;">Description</span><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><span
+ style="font-weight: bold;">Author</span><br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Mar 6, 2004<br>
+      </td>
+      <td style="vertical-align: top;">V2004<br>
+      </td>
+      <td style="vertical-align: top;">Initial Writeup<br>
+      </td>
+      <td style="vertical-align: top;">Alex, Brian, Mehdi, Navid<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Mar 19, 2004<br>
+      </td>
+      <td style="vertical-align: top;">V2004.1<br>
+      </td>
+      <td style="vertical-align: top;">Significant overhaul to reflect
+more knowledge about system revealed by simulator.&nbsp; Significant
+changes are the removal of the use cases for start-up, shut-down, or
+emergency situation.&nbsp; System no longer has "modes".&nbsp; Control
+system startup is now specified in the process specification.&nbsp;
+Actions given their names they will take on as C functions.<br>
+      </td>
+      <td style="vertical-align: top;">Alex, Brian, Mehdi, Navid<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><br>
+      </td>
+      <td style="vertical-align: top;"><big><br>
+      </big></td>
+      <td style="vertical-align: top;"><big><br>
+      </big></td>
+      <td style="vertical-align: top;"><big><br>
+      </big></td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><big><br>
+      </big></td>
+      <td style="vertical-align: top;"><big><br>
+      </big></td>
+      <td style="vertical-align: top;"><big><br>
+      </big></td>
+      <td style="vertical-align: top;"><big><br>
+      </big></td>
+    </tr>
+  </tbody>
+</table>
+<big><br style="font-weight: bold;">
+</big>
+<div style="text-align: center;"><big><big><span
+ style="font-weight: bold;">Table
+Of Contents</span></big></big><br>
+<br>
+<div style="text-align: left;">
+<div style="margin-left: 40px;">U1. <a href="#U1">Blank Arrived at
+Feed Belt.&nbsp; Pick up with crane</a><br>
+U2. <a href="#U2"><span style="text-decoration: underline;">Blank
+needs to go to a processing unit and is held by a crane</span></a><br>
+U3. <a href="#U3">Blank has been put in a processing unit.&nbsp;
+Process it, then pick up with the crane</a><br>
+U4. <a href="#U4">Blank needs to go to the deposit belt and is held by
+a crane</a><br>
+</div>
+</div>
+<div style="text-align: left;">
+<div style="text-align: center;"><big><span style="font-weight: bold;"></span></big><big><span
+ style="font-weight: bold;"><br>
+</span></big><big><span style="font-weight: bold;"><big><big><br>
+</big></big></span></big>
+<div style="text-align: left;"><big>Note: All active classes specified
+in <a href="ProcessDescriptions.html">Process Descriptions</a> document</big><br>
+<big><span style="font-weight: bold;"></span></big></div>
+<big><span style="font-weight: bold;"><big><big><br>
+<br>
+Use-Case
+Model</big></big></span></big><br>
+<big><span style="font-weight: bold;"><br>
+<br>
+</span></big>
+<div style="text-align: left;"><big><span style="font-weight: bold;"><a
+ name="U1"></a>U1<br>
+</span>Pipeline Diagram:<span style="font-weight: bold;"><br>
+</span></big><big><span style="font-weight: bold;"></span></big></div>
+<big><span style="font-weight: bold;"></span></big><img
+ alt="Pipeline diagram for U1" src="pipelinediagrams/Case1.jpg"
+ style="width: 690px; height: 440px;"><br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;"><span style="font-weight: bold;">ID</span><br>
+      </td>
+      <td style="vertical-align: top;"><span style="font-weight: bold;">U1</span><br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Description<br>
+      </td>
+      <td style="vertical-align: top;">A blank has arrived at the end
+of the feed belt.&nbsp; Stop the belt.&nbsp; Reserve the processing
+units it needs.&nbsp; Obtain access to a crane, and put the unit in the
+crane.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Mode<br>
+      </td>
+      <td style="vertical-align: top;">N/A<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Use-Case<br>
+      </td>
+      <td style="vertical-align: top;">OS &gt; SIGALRM<br>
+FeedBelt &lt; blank_present<br>
+BarcodeReader &lt; ReadBarcode<br>
+ProcessingUnits &lt; Reserve<br>
+CraneController &lt; Request<br>
+CraneController &lt; Movexy<br>
+CraneController &lt; Get<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<big><span style="font-weight: bold;"></span></big><br>
+<br>
+<div style="text-align: left;"><big><span style="font-weight: bold;"><a
+ name="U2"></a>U2<br>
+</span>Pipeline Diagram:</big></div>
+<br>
+<img alt="Pipeline Diagram U2" src="pipelinediagrams/Case2.jpg"
+ style="width: 677px; height: 462px;"><br>
+<br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;"><span style="font-weight: bold;">ID</span><br>
+      </td>
+      <td style="vertical-align: top;"><span style="font-weight: bold;">U2</span><br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Description<br>
+      </td>
+      <td style="vertical-align: top;">Blank is held by a crane and
+needs to go to a processing unit.&nbsp; Put it in its next processing
+unit.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Mode<br>
+      </td>
+      <td style="vertical-align: top;">N/A</td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Use-Case<br>
+      </td>
+      <td style="vertical-align: top;">BlankBuffer &gt; getBlank<br>
+CraneController &lt; Moveto_xy<br>
+CraneController &lt; put<br>
+CraneController &lt; signalDone<br>
+BlankBuffer &lt; put<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+<br>
+<div style="text-align: left;"><big><span style="font-weight: bold;"><a
+ name="U3"></a>U3<br>
+</span>Pipeline Diagram:<br>
+<br>
+<br>
+<img alt="Pipeline Diagram U3" src="pipelinediagrams/Case3.jpg"
+ style="width: 670px; height: 480px;"><br>
+<br>
+<br>
+</big></div>
+&nbsp;<br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;"><span style="font-weight: bold;">ID</span><br>
+      </td>
+      <td style="vertical-align: top;"><span style="font-weight: bold;">U3</span><br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Description<br>
+      </td>
+      <td style="vertical-align: top;">A blank has been placed in a
+unit.&nbsp; Activate the process.&nbsp; After the required minimum
+processing time has passed, put the blank in a crane.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Mode<br>
+      </td>
+      <td style="vertical-align: top;">N/A</td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Use-Case<br>
+      </td>
+      <td style="vertical-align: top;">BlankBuffer &gt; put<br>
+BlankBuffer &lt; get<br>
+ProcessUnitController &lt; turnOn<br>
+CraneController &lt; request<br>
+CraneController &lt; move_xy<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+<br>
+<div style="text-align: left;"><big><span style="font-weight: bold;"><a
+ name="U4"></a>U4<br>
+</span>Pipeline Diagram:<br>
+<br>
+<img alt="Pipeline Diagram U4" src="pipelinediagrams/Case4.jpg"
+ style="width: 560px; height: 436px;"><br>
+<br>
+<br>
+</big></div>
+<br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;"><span style="font-weight: bold;">ID</span><br>
+      </td>
+      <td style="vertical-align: top;"><span style="font-weight: bold;">U4</span><br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Description<br>
+      </td>
+      <td style="vertical-align: top;">A blank is held by a
+crane.&nbsp; This blank is done with the system.&nbsp; Take it to the
+deposit belt.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Mode<br>
+      </td>
+      <td style="vertical-align: top;">running</td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Use-Case<br>
+      </td>
+      <td style="vertical-align: top;">BlankBuffer &gt; put<br>
+BlankBuffer &lt; get<br>
+DepositBeltSensor &lt; IsFree<br>
+CraneController &lt; moveto_xy<br>
+CraneController &lt; put<br>
+CraneController &lt; signalDone<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+<big><span style="font-weight: bold;"></span></big></div>
+</div>
+</div>
+</body>
+</html>

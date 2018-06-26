@@ -1,0 +1,31 @@
+
+
+This directory contains a simple C interface library to the flexible Cell 
+simulator.
+
+You can make the library using:
+
+make clean
+make all
+
+
+This will create the library (libflexLibrary.so) as well as a test controller
+called testControl.  You can run the simulation and controller using the
+command: start.
+
+You must have the following for the test to work:
+
+LD_LIBRARY_PATH set to point to the directory containing libflexLibrary.so 
+CLASSPATH set to point to the directory containing flexible cell simulation 
+
+
+The test controller sets up some threads, turns on the feed belt and
+ then moves the crane to a new position.  If an item is placed on the
+feedbelt it will advance until it triggers the feedbelt sensor.  The
+testController will stop the feedbelt and get the bar code.  While
+all this is happening there is also a periodic task that is polling
+the sensors every 2 update periods.  Try adding an item to see what
+happens.
+
+
+

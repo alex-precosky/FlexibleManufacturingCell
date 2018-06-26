@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1"
+ http-equiv="content-type">
+  <title>System Architecture/Deployment</title>
+</head>
+<body>
+<br>
+<div style="text-align: center;"><big><big><big>Revision History</big></big></big><br>
+</div>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top; text-align: center;"><span
+ style="font-weight: bold;">Date</span><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><span
+ style="font-weight: bold;">Issue</span><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><span
+ style="font-weight: bold;">Description</span><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><span
+ style="font-weight: bold;">Author</span><br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Mar 22, 2004<br>
+      </td>
+      <td style="vertical-align: top;">V2004<br>
+      </td>
+      <td style="vertical-align: top;">Inital Writing<br>
+      </td>
+      <td style="vertical-align: top;">Alex, Brian, Mehdi, Navid<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><br>
+      </td>
+      <td style="vertical-align: top;"><br>
+      </td>
+      <td style="vertical-align: top;"><br>
+      </td>
+      <td style="vertical-align: top;"><br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><br>
+      </td>
+      <td style="vertical-align: top;"><big><br>
+      </big></td>
+      <td style="vertical-align: top;"><big><br>
+      </big></td>
+      <td style="vertical-align: top;"><big><br>
+      </big></td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><big><br>
+      </big></td>
+      <td style="vertical-align: top;"><big><br>
+      </big></td>
+      <td style="vertical-align: top;"><big><br>
+      </big></td>
+      <td style="vertical-align: top;"><big><br>
+      </big></td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+<br>
+The system was designed to be implemented as a single node.&nbsp; All
+actuators and sensors have control lines running into the control
+station.&nbsp; Directly interfacing with the hardware sensors and
+actuators is the layer specified in <span style="font-style: italic;">flexInterface.h</span>.&nbsp;
+The high-level design documented in these documents is implemented in
+the top layer, the control software, which consists of a series of
+POSIX threads and structs.<br>
+<br>
+The following UML deployment diagram is shown:<br>
+<big><span style="font-weight: bold;"></span></big><br>
+<img alt="UML Deployment Diagram" src="deployment.jpg"
+ style="width: 637px; height: 412px;"><br>
+<br>
+<br>
+</body>
+</html>

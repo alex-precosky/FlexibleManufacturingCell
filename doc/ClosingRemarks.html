@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1"
+ http-equiv="content-type">
+  <title>ClosingRemarks</title>
+</head>
+<body>
+<h2>Implementation Notes/ Closing Remarks</h2>
+<br>
+<br>
+By following the design we had made, we were able to implement the
+system.&nbsp; Very few design changes were needed; our implementation
+was almost a formal tranlation of our design.&nbsp; The system mostly
+works as advertised.<br>
+<br>
+One first note is that the system assumes a numbering scheme of
+processing units.&nbsp; The top left unit is called unit '1', the top
+right unit is '2', the bottom left unit is '3', and the bottom right
+unit is '4'.&nbsp; So test blanks should have their barcodes set up so
+that they need to visit units of one of these numbers.&nbsp; Undefined
+behaviour will occur if a blank shows up wanting to use processing unit
+'0' or '5' or '92', etc.&nbsp; <br>
+<br>
+Next, a note on throughput.&nbsp; Our original design was not completly
+optimal in maximizing blank throughput.&nbsp; The symantics boggled our
+minds when trying to just think about it in non-programming English
+descriptions, so coming up with fully optimized C algorithms just
+wasn't in the cards for us.&nbsp; There are a few simplifications we
+made.&nbsp; One such simplification this is we require that all of the
+units a blank will need to use are reserved before we let that blank
+into the system.&nbsp; So if one blank is in the system that is using
+units 1 and 4, and another one arrives at the feed belt that wants to
+use units 1 and 2, the new blank will not be admitted until the first
+blank has left the system and unreserved its processing units.&nbsp;
+Another simplification that limits our blank throughput is that crane
+assignment is pre-determined based upon where a blank is located and
+where it needs to move, rather than assigning the closest available
+crane, or some other similar way.&nbsp; For example, moving between
+units '1' and '3' always uses crane 1.<br>
+<br>
+Our system does not use the maxTime parameter or 'order' flag when
+processing blanks.&nbsp; Blanks are always processed for at least
+'minTime', and in the order specified in the blank.<br>
+<br>
+The only bug in the system we noticied is sometimes blanks are taken
+out of their units before their time is up.&nbsp; In order to make sure
+a blank was processed for the right amount of time, we used flexWait(),
+which calls nanosleep() to wait for the desired amount of time.&nbsp;
+But, of course, these functions are linked to real-world time rather
+than simulated time, so of course the desired time will not always be
+waited.&nbsp; To get correct waiting times, we should have found a way
+to gain access to the simulated time clock.&nbsp; Other than this, the
+blanks we tested worked without error.<br>
+</body>
+</html>

@@ -1,0 +1,308 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1"
+ http-equiv="content-type">
+  <title>Glossary</title>
+</head>
+<body>
+<div style="text-align: center;"><big><big><big>Revision History</big></big></big><br>
+</div>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top; text-align: center;"><span
+ style="font-weight: bold;">Date</span><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><span
+ style="font-weight: bold;">Issue</span><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><span
+ style="font-weight: bold;">Description</span><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><span
+ style="font-weight: bold;">Author</span><br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Mar 6. 2004<br>
+      </td>
+      <td style="vertical-align: top;">V2004<br>
+      </td>
+      <td style="vertical-align: top;">Inital Writing<br>
+      </td>
+      <td style="vertical-align: top;">Alex, Brian, Mehdi, Navid<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Mar 22, 2004<br>
+      </td>
+      <td style="vertical-align: top;">V2004.1<br>
+      </td>
+      <td style="vertical-align: top;">Changed to update the highly
+revamped use-cases.&nbsp; Actor names now correspond to class
+names.&nbsp; Action/event names now correspond to C functions.&nbsp;
+Now have CraneController and ProcessUnitController actors to coordinate
+the use of the cranes and processing units.<br>
+      </td>
+      <td style="vertical-align: top;">Alex, Brian, Mehdi, Navid<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><br>
+      </td>
+      <td style="vertical-align: top;"><big><br>
+      </big></td>
+      <td style="vertical-align: top;"><big><br>
+      </big></td>
+      <td style="vertical-align: top;"><big><br>
+      </big></td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><big><br>
+      </big></td>
+      <td style="vertical-align: top;"><big><br>
+      </big></td>
+      <td style="vertical-align: top;"><big><br>
+      </big></td>
+      <td style="vertical-align: top;"><big><br>
+      </big></td>
+    </tr>
+  </tbody>
+</table>
+<big><br style="font-weight: bold;">
+</big>
+<div style="text-align: center;"><big><span style="font-weight: bold;">Table
+Of Contents</span></big><br>
+<br>
+<div style="text-align: left;">
+<ol>
+  <li><a href="#BarcodeReader">BarcodeReader</a></li>
+  <li><a href="#Blank">Blank</a></li>
+  <li><a href="#BlankBuffer">BlankBuffer</a></li>
+  <li><a href="#FeedBelt">FeedBelt</a></li>
+  <li><a href="#CraneController">CraneController</a></li>
+  <li><a href="#DepositBeltSensor">DepositBeltSensor</a></li>
+  <li><a href="#DepositBeltSensor">FeedbeltSensor</a></li>
+  <li><a href="#ProcessUnitController">ProcessUnitController</a><br>
+  </li>
+</ol>
+<br>
+<div style="text-align: center;"><big><br style="font-weight: bold;">
+</big> <big><span style="font-weight: bold;">Glossary<br>
+<br>
+</span></big>
+<div style="text-align: left;"><big>* Note: Actions specified more
+thouroughly in class diagram document, describing them as C functions
+including parameters.<span style="font-weight: bold;"></span></big><br>
+<big><span style="font-weight: bold;"></span></big></div>
+<big><span style="font-weight: bold;"><br>
+</span></big>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;"><span style="font-weight: bold;">Actor</span><br>
+      </td>
+      <td style="vertical-align: top;"><span style="font-weight: bold;">Description</span><br>
+      </td>
+      <td style="vertical-align: top;"><span style="font-weight: bold;">CA</span><br>
+      </td>
+      <td style="vertical-align: top;"><span style="font-weight: bold;">Event/Action</span><br>
+      </td>
+      <td style="vertical-align: top;"><span style="font-weight: bold;">Description</span><br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">BarcodeReader<a
+ name="BarcodeReader"></a><br>
+      </td>
+      <td style="vertical-align: top;">Reads information from the
+barcode
+of entering blanks<br>
+      </td>
+      <td style="vertical-align: top;">ReadBarcode<br>
+      </td>
+      <td style="vertical-align: top;">Action<br>
+      </td>
+      <td style="vertical-align: top;">Retreives the information read
+by the barcode reader.&nbsp; Waits until the information has scanned
+and has appeared in memory before returning.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Blank<a name="Blank"></a><br>
+      </td>
+      <td style="vertical-align: top;">Blanks that goes through the
+system.&nbsp; It stores its own barcode's information, i.e. the
+processes it needs to go through, the time to spend in each, and its
+maximum allowed tiem in the system.<br>
+      </td>
+      <td style="vertical-align: top;">New<br>
+      </td>
+      <td style="vertical-align: top;">Action<br>
+      </td>
+      <td style="vertical-align: top;">Tell the blank its processing
+order
+for internal storage.&nbsp; Basically tell the blank what its barcode
+says.<br>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="1" rowspan="2" style="vertical-align: top;">BlankBuffer<a
+ name="BlankBuffer"></a><br>
+      </td>
+      <td colspan="1" rowspan="2" style="vertical-align: top;">A sync
+object for holding blank information.<br>
+      </td>
+      <td style="vertical-align: top;">putBlank<br>
+      </td>
+      <td style="vertical-align: top;">Action<br>
+      </td>
+      <td style="vertical-align: top;">Place a blank in the buffer<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">getBlank<br>
+      </td>
+      <td style="vertical-align: top;">Action<br>
+      </td>
+      <td style="vertical-align: top;">Retrieve a blank from the buffer<br>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="1" rowspan="2" style="vertical-align: top;">FeedBelt<a
+ name="FeedBelt"></a><br>
+      </td>
+      <td colspan="1" rowspan="2" style="vertical-align: top;">Carries
+new
+blanks into the system and up to the barcode reader<br>
+      </td>
+      <td style="vertical-align: top;">turn_on<br>
+      </td>
+      <td style="vertical-align: top;">Action<br>
+      </td>
+      <td style="vertical-align: top;">Start the motion of the feed belt<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">turn_off<br>
+      </td>
+      <td style="vertical-align: top;">Action<br>
+      </td>
+      <td style="vertical-align: top;">Halt the motion of the feed belt<br>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="1" rowspan="3" style="vertical-align: top;">CraneController<a
+ name="CraneController"></a><br>
+      </td>
+      <td colspan="1" rowspan="3" style="vertical-align: top;">The
+controller for the overhead travelling cranes for moving blanks.&nbsp;
+Manages cranes reservations.<br>
+      </td>
+      <td style="vertical-align: top;">move_xy<br>
+      </td>
+      <td style="vertical-align: top;">Action<br>
+      </td>
+      <td style="vertical-align: top;">Move the requested crane to the
+requested
+coordinate
+(x,y)<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">request<br>
+      </td>
+      <td style="vertical-align: top;">Action<br>
+      </td>
+      <td style="vertical-align: top;">Inform the cranes that we need
+one
+for a job.&nbsp; Wait until it is done its current job.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">signal_done<br>
+      </td>
+      <td style="vertical-align: top;">Action<br>
+      </td>
+      <td style="vertical-align: top;">Inform the crane that it is
+finished
+its current job and that it can go do other jobs if it needs to.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">DepositBeltSensor<a
+ name="DepositBeltSensor"></a><br>
+      </td>
+      <td style="vertical-align: top;">Senses when a blank is at the
+beginning of the deposit belt.<br>
+      </td>
+      <td style="vertical-align: top;">IsFree<br>
+      </td>
+      <td style="vertical-align: top;">Action<br>
+      </td>
+      <td style="vertical-align: top;">Poll to see if we can put
+something
+on the deposit belt.<br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top">FeedbeltSensor<a name="FeedbeltSensor"></a><br>
+      </td>
+      <td valign="top">Detects blanks in front of the barcode reader.<br>
+      </td>
+      <td valign="top">SIGALRM<br>
+      </td>
+      <td valign="top">Event<br>
+      </td>
+      <td valign="top">The light sensor picks up a blank in position in
+front
+of the barcode reader.<br>
+      </td>
+    </tr>
+    <tr>
+      <td rowspan="3" style="vertical-align: top;">ProcessUnitController<a
+ name="ProcessUnitController"></a><br>
+      </td>
+      <td rowspan="3" style="vertical-align: top;">The controller for
+the processing units.&nbsp; Manages which units are reserved at any
+given time.<br>
+      </td>
+      <td style="vertical-align: top;">reserve<br>
+      </td>
+      <td style="vertical-align: top;">Action<br>
+      </td>
+      <td style="vertical-align: top;">Tell processing units which ones
+we want to use.&nbsp; Block until these units are no longer needed by
+other blanks.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">turn_on<br>
+      </td>
+      <td style="vertical-align: top;">Action<br>
+      </td>
+      <td style="vertical-align: top;">Activate a processing unit<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">signalDone<br>
+      </td>
+      <td style="vertical-align: top;">Action<br>
+      </td>
+      <td style="vertical-align: top;">Tell the controller that the
+blank is done with the system so that it can let other blanks in the
+need the units the blank had reserved.<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<big><span style="font-weight: bold;"><br>
+</span></big></div>
+</div>
+</div>
+<br>
+</body>
+</html>

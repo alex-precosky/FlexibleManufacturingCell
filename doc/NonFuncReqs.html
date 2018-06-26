@@ -1,0 +1,274 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1"
+ http-equiv="content-type">
+  <title>Non-Functional Requirements</title>
+  <meta content="EMEC" name="author">
+</head>
+<body>
+<div style="text-align: center;"><big><big><big>Revision History</big></big></big><br>
+</div>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top; text-align: center;"><span
+ style="font-weight: bold;">Date</span><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><span
+ style="font-weight: bold;">Issue</span><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><span
+ style="font-weight: bold;">Description</span><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><span
+ style="font-weight: bold;">Author</span><br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Mar. 6, 2004<br>
+      </td>
+      <td style="vertical-align: top;">V2004<br>
+      </td>
+      <td style="vertical-align: top;">Initial Creation<br>
+      </td>
+      <td style="vertical-align: top;">Alex, Brian, Mehdi, Navid<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Mar. 22, 2004<br>
+      </td>
+      <td style="vertical-align: top;">V2004.a<br>
+      </td>
+      <td style="vertical-align: top;">Updated to reflect the
+architectual system design.&nbsp; Much simplification.<br>
+      </td>
+      <td style="vertical-align: top;">Alex, Brian, Mehdi, Navid<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><br>
+      </td>
+      <td style="vertical-align: top;"><big><br>
+      </big></td>
+      <td style="vertical-align: top;"><big><br>
+      </big></td>
+      <td style="vertical-align: top;"><big><br>
+      </big></td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><big><br>
+      </big></td>
+      <td style="vertical-align: top;"><big><br>
+      </big></td>
+      <td style="vertical-align: top;"><big><br>
+      </big></td>
+      <td style="vertical-align: top;"><big><br>
+      </big></td>
+    </tr>
+  </tbody>
+</table>
+<big></big><br>
+<div style="text-align: center;"><big><span style="font-weight: bold;"><big>Table
+Of Contents</big><br>
+<br>
+</span></big>
+<div style="text-align: left;"><big><span style="font-weight: bold;">Events<br>
+<br>
+</span></big><big><span style="font-weight: bold;"></span></big></div>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;"><span style="font-weight: bold;">Use-Case</span><br>
+      </td>
+      <td style="vertical-align: top;"><span style="font-weight: bold;">Event</span><br>
+      </td>
+      <td style="vertical-align: top;"><span style="font-weight: bold;">Arrival
+Pattern</span><br>
+      </td>
+      <td style="vertical-align: top;"><span style="font-weight: bold;">Discussion</span><br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">U1<br>
+      </td>
+      <td style="vertical-align: top;">FeedbeltSensor &gt; SIGALRM<br>
+      </td>
+      <td style="vertical-align: top;">bounded 10/ s<br>
+      </td>
+      <td style="vertical-align: top;">This is the frequency of the
+sensor.&nbsp; It won't miss any items arriving on the belt at this rate.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">U1, U2, U3<br>
+      </td>
+      <td style="vertical-align: top;">BlankBuffer &gt; put<br>
+      </td>
+      <td style="vertical-align: top;">bounded 4/ min_i s<br>
+      </td>
+      <td style="vertical-align: top;">There are 4 places where objects
+may be placed in BlankbBuffers in the pipeline diagrams. <br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">U4<br>
+      </td>
+      <td style="vertical-align: top;">ProcessUnitController &gt;
+signalDone<br>
+      </td>
+      <td style="vertical-align: top;">bounded 4/ min(min_i, crane_min)
+s<br>
+      </td>
+      <td style="vertical-align: top;">No more than 4 times in min_i
+seconds, or crane_max seconds will this be called, where min_i is the
+minimum processing time a blank can spend in a unit, and crane_min is
+the minimum time a crane can take to complete a job of moving a blank
+between two locations.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">U2,U4<br>
+      </td>
+      <td style="vertical-align: top;">CraneController &gt; signalDone<br>
+      </td>
+      <td style="vertical-align: top;">bounded 2/ crane_min s<br>
+      </td>
+      <td style="vertical-align: top;">No more than 2 times in
+crane_min seconds, where crane_min is the minimum amount of time the
+crane could ever take to move a blank between two locations.<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<big><span style="font-weight: bold;"><br>
+<br>
+</span></big>
+<div style="text-align: left;"><big><span style="font-weight: bold;">Actions</span><br>
+<span style="font-weight: bold;"></span></big><br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;"><span style="font-weight: bold;">Use-Case</span><br>
+      </td>
+      <td style="vertical-align: top;"><span style="font-weight: bold;">Action</span><br>
+      </td>
+      <td style="vertical-align: top;"><span style="font-weight: bold;">Response
+Requirement</span><br>
+      </td>
+      <td style="vertical-align: top;"><span style="font-weight: bold;">Discussion</span><br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">U1<br>
+      </td>
+      <td style="vertical-align: top;">FeedBelt &lt; turn_on</td>
+      <td style="vertical-align: top;">pa: [0.01:10 s] <span
+ style="font-weight: bold;">hard</span><br>
+      </td>
+      <td style="vertical-align: top;">The time taken to turn on the
+feed belt from the time of request.&nbsp; Has a hard minimum bound to
+prevent the slipping of the belt if it starts too quickly.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">U1<br>
+      </td>
+      <td style="vertical-align: top;">FeedBelt &lt; turn_off<br>
+      </td>
+      <td style="vertical-align: top;">pe: [0.01:0.05 s] <span
+ style="font-weight: bold;">hard</span><br>
+      </td>
+      <td style="vertical-align: top;">The feed belt should be turned
+off before a part falls off.&nbsp; Has a minimum bound because if the
+belt
+is stopped to quickly, the part's momentum might send it into a roll.</td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">U1<br>
+      </td>
+      <td style="vertical-align: top;">BarcodeReader &lt; ReadBarcode<br>
+      </td>
+      <td style="vertical-align: top;">pa: [0:0.1 s] soft<br>
+      </td>
+      <td style="vertical-align: top;">The time taken from the barcode
+being read to the information becoming available for storage<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">U1<br>
+      </td>
+      <td style="vertical-align: top;">blank &lt; new</td>
+      <td style="vertical-align: top;">pa: [0:0.5 s] soft<br>
+      </td>
+      <td style="vertical-align: top;">The time taken for the
+information from the barcode to be stored<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">U1<br>
+      </td>
+      <td style="vertical-align: top;">ProcessUnitController &lt;
+Reserve</td>
+      <td style="vertical-align: top;">pa: [0:120 s] soft<br>
+      </td>
+      <td style="vertical-align: top;">The time taken for the
+processing unit to be reserved.&nbsp; Since the maximum time that a
+blank is allowed to be in the system doesn't start until the blank is
+picked up off the feed belt, this can be large.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">U2,U3,U4<br>
+      </td>
+      <td style="vertical-align: top;">CraneController &lt; Request</td>
+      <td
+ style="vertical-align: top; background-color: rgb(255, 255, 255);">pa:
+[0:10 s] soft<br>
+      </td>
+      <td style="vertical-align: top;">The time taken for the crane to
+become available.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">U2,U3,U4<br>
+      </td>
+      <td style="vertical-align: top;">Crane &lt; moveto_xy</td>
+      <td style="vertical-align: top;">pa: [0:t_m s] soft<br>
+      </td>
+      <td
+ style="vertical-align: top; background-color: rgb(255, 255, 255);">The
+time taken for the crane to
+move to the requested xy location. t_m <br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">U2,U3,U4<br>
+      </td>
+      <td style="vertical-align: top;">CraneController &lt; signal_done<br>
+      </td>
+      <td style="vertical-align: top;">pa: [0:1 s] soft<br>
+      </td>
+      <td style="vertical-align: top;">The time from when the crane is
+done to when the signal is activated.&nbsp; <br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">U4<br>
+      </td>
+      <td style="vertical-align: top;">DepositBeltSensor &lt; IsFree</td>
+      <td style="vertical-align: top;">pe: [0:0.01 s] soft<br>
+      </td>
+      <td style="vertical-align: top;">The time for polling the sensor
+on the deposit belt<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<big><span style="font-weight: bold;"></span></big></div>
+</div>
+</body>
+</html>

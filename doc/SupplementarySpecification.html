@@ -1,0 +1,311 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <title>Supplementary Specification</title>
+</head>
+<body>
+<div style="text-align: center;"><big><big><big>Revision History<br>
+<br>
+</big></big></big></div>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top; text-align: center;"><span
+ style="font-weight: bold;">Date</span><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><span
+ style="font-weight: bold;">Issue</span><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><span
+ style="font-weight: bold;">Description</span><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><span
+ style="font-weight: bold;">Author</span><br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Mar. 6, 2004<br>
+      </td>
+      <td style="vertical-align: top;">V2004<br>
+      </td>
+      <td style="vertical-align: top;">Initial Creation<br>
+      </td>
+      <td style="vertical-align: top;">Alex, Brian, Mehdi, Navid<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Mar. 22, 2004<br>
+      </td>
+      <td style="vertical-align: top;">V2004.1<br>
+      </td>
+      <td style="vertical-align: top;">Significantly more thought given
+to resource allocation of the cranes.&nbsp; Added assumption that
+system started up and shut-down manually by human, and that system
+would be started up with no blanks in any of the units.&nbsp;
+Simplified a requirement of processing order; now all blanks are
+processed in the order specified on the barcode instead of just the
+ones with the 'r' bit set.<br>
+      </td>
+      <td style="vertical-align: top;">Alex, Brian, Mehdi, Navid<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><br>
+      </td>
+      <td style="vertical-align: top;"><big><br>
+      </big></td>
+      <td style="vertical-align: top;"><big><br>
+      </big></td>
+      <td style="vertical-align: top;"><big><br>
+      </big></td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><big><br>
+      </big></td>
+      <td style="vertical-align: top;"><big><br>
+      </big></td>
+      <td style="vertical-align: top;"><big><br>
+      </big></td>
+      <td style="vertical-align: top;"><big><br>
+      </big></td>
+    </tr>
+  </tbody>
+</table>
+<big><br style="font-weight: bold;">
+</big>
+<h2 style="text-align: center;"><big><span style="font-weight: bold;">Supplementary
+Specification<br>
+</span></big></h2>
+<div style="text-align: center;">
+<div style="text-align: left;"><big><big><span
+ style="font-weight: bold;">Table of Contents</span></big></big><br>
+<big><big><span style="font-weight: bold;"></span></big></big></div>
+<div style="text-align: left;">
+<ol>
+  <li><a href="#1._Objectives">Objectives</a></li>
+  <li><a href="#2._Scope">Scope</a></li>
+  <li><a href="#3._References">References</a></li>
+  <li><a href="#4._Functionality">Functionality</a></li>
+  <li><a href="#5._Usability">Usability</a></li>
+  <li><a href="#6._Reliability">Reliability</a></li>
+  <li><a href="#7._Performance">Performance</a></li>
+  <li><a href="#8._Supportability">Supportability</a></li>
+  <li><a href="#9._Security">Security</a></li>
+  <li><a href="#10._Safety">Safety</a></li>
+  <li><a href="#11._Design_Constraints">Design Constraints</a></li>
+  <li><a href="#12._Resource_Allocaton_Policies_">Resource Allocation
+Policy/Deadlock Prevention</a><br>
+  </li>
+</ol>
+</div>
+</div>
+<h2><a name="1._Objectives"></a>1. Objectives<a name="objectives"></a></h2>
+This set of documents were written in order to specify the automatic
+production cell requirements.&nbsp; Requirements that do not appear in
+the use-case model have been specified here, and together with the
+use-case model, completely capture the requirements of the system.<br>
+<br>
+<h2><a name="2._Scope"></a>2. Scope<a name="scope"></a></h2>
+This document applies to the automatic production cell system that is
+being developed by the student team consisting of the members:<br>
+<br>
+<div style="margin-left: 40px;">Alex Precosky<br>
+Brian Dowling<br>
+Mehdi Bahrami<br>
+Navid Boostani<br>
+</div>
+<br>
+Specified by this set of documents include the functional requirements
+of the system in the form of the use-case model, and the non-functional
+requirements of the system, which are mainly timing requirements.<br>
+<h2><a name="3._References"></a>3. References<a name="references"></a></h2>
+This set of documents is based on the problem described in:<br>
+<br>
+M&uuml;hlfeld, Dr. R, and Anette L&ouml;tzbeyer. "Task Description of a
+Flexible Production Cell with <br>
+&nbsp;&nbsp;&nbsp;&nbsp; Real Time Properties." 30 Jul. 1996.<br>
+<br>
+<h2><a name="4._Functionality"></a>4. Functionality<a
+ name="functionality"></a></h2>
+In the event of an emergency shut-down, all of the devices in the
+system
+should be manually controllable by an operator.&nbsp; This is to allow
+manipulation of the system if it is in a state that the system is not
+designed to be able to start up in.&nbsp;<br>
+<h2><a name="5._Usability"></a>5. Usability<a name="usability"></a></h2>
+None.<br>
+<h2><a name="6._Reliability"></a>6. Reliability<a name="reliability"></a></h2>
+Blanks which are admitted into the system on the feed belt must
+eventually exit the system on the deposit belt.<br>
+<br>
+The blanks must go through the processing unit in the determined order,
+if the r flag is set.&nbsp; For simplicity, all blanks are actually
+processed in the order of operations as they appear on the barcode.<br>
+<br>
+The blanks only go through the processing units given in the bar code
+once.<br>
+<br>
+<h2><a name="7._Performance"></a>7. Performance<a name="performance"></a></h2>
+A blank may not stay longer than t_G seconds in the system.&nbsp; This
+time
+is defined as the time between picking up the blank from the end of the
+feed belt and the arrival of the blank on the deposit best which is
+reported by the corresponding sensor.<br>
+<br>
+If a piece is being processed by one of the devices, this must not last
+longer than maxi seconds and may not be dropped before min_i seconds.
+<h2><a name="8._Supportability"></a>8. Supportability<a
+ name="supportability"></a></h2>
+None.<br>
+<h2><a name="9._Security"></a>9. Security<a name="security"></a></h2>
+None.<br>
+<br>
+<h2><a name="10._Safety"></a>10. Safety<a name="safety"></a></h2>
+Cranes are not permitted to have the same x-position.&nbsp; This is to
+ensure that they do not collide with each other.&nbsp; A crane 'n'
+should always be to the right of crane 'n-1' and to the left of crane
+'n+1'.<br>
+<br>
+Cranes are only permitted to move if its gripper is in the upper
+position.<br>
+<br>
+A blank may only be put in a processing unit if that unit's sensor does
+not&nbsp; detect a blank already present within that machine.<br>
+<br>
+A blank may be put on the deposit belt only if the deposit belt sensor
+does not detect the presence of a blank already at the beginning of the
+belt.<br>
+<br>
+<h2><a name="11._Design_Constraints"></a>11. Design Constraints<a
+ name="designconstraints"></a></h2>
+It is assumed that when the system starts up, there will be no blanks
+in any of the units or held by any of the cranes.<br>
+<br>
+In order to start up the system,<br>
+<br>
+<h2><a name="12._Resource_Allocaton_Policies_"></a>12. Resource
+Allocation Policies<a name="resourceallocationpolicies"></a><br>
+</h2>
+These issues arguably represent the most difficult and important part
+of the design of the system, so ample space has been given to their
+discussion.<br>
+<br>
+There are two things that we need to deal with in our design. The first
+is the case where we have blanks that need processing by the same
+processing unit. While the other is the case where the might be a
+collision between the two cranes which could happen, for example, if
+the two cranes need to go far in opposite directions.<br>
+<br>
+To deal with the processing unit contention we have set up our system
+such that there is a processingUnitController that makes sure we do not
+pick up any items from the feedbelt unless we can allocate to it the
+processingUnits that it may need right now. Fundamentally, this is
+resource reservation. If a blank needs processing units 1 and 2, then
+the processingUnitController checks to see if any other blank has
+reserved either of those two processingUnits. If not, then it reserves
+the processingUnits for the blank, makes sure that no other blank can
+reserve those two processingUnits, and then allows the blank into the
+system by requesting a crane. To achieve the reservation, there is a
+reserveByte inside the processingUnitController with each of the first
+4 bits corresponding to one of the processingUnits. A processingUnit is
+shown to be reserved by a 1 bit, and available by a 0-bit in the
+appropriate place in the byte. The highest 4 bits we do not care about.
+For example, 0011 would mean that processingUnits 2 and 1 are reserved;
+similarly, 1010 means that processingUnits 4 and 2 are reserved.<br>
+<br>
+When a blank needs to be moved, it calls the request method of the
+CraneController class.&nbsp; The CraneController's first job then is to
+decide which crane is going to handle the moving of the blank.&nbsp; To
+simplify the design, we have designated certain movements to a
+particular crane.&nbsp; Consider the movement of a blank from the feed
+belt to its first processing unit.&nbsp; Since only the leftmost crane,
+i.e. crane 1, can reach this position, these requests coming from there
+will always be handled by crane 1.&nbsp; Similarly, for requests to
+move a blank to the deposit belt, crane 2 will always be assigned that
+task since only crane 2 can reach the deposit belt.&nbsp; Now, consider
+the case of moving a blank to the other unit in the same X coordiante:<br>
+<img alt="Moving a blank to the same column"
+ src="cranepictures/blanktosamecolumn.gif"
+ style="width: 386px; height: 247px;"><br>
+<br>
+We have decided that crane 1 will always handle moves between units 1
+and 3, which crane 2 will always handle moves between 2 and 4.&nbsp;
+Now consider the case of moving a blank across the floor to a unit with
+a different X-coordinate.<br>
+<br>
+<img alt="Moving a blank across the floor"
+ src="cranepictures/blanktocrossfloor.gif"
+ style="width: 565px; height: 362px;"><br>
+<br>
+We have decided that crane 2 will always move units from the left units
+to the right units, and that crane 1 will always move units from the
+right units to the left units.<br>
+<br>
+<br>
+<br>
+To deal with the deadlock and collision scenarios that may arise
+because of conflicting crane destinations, we propose the following:
+Each crane, before moving, will reserve all the positions in the
+x=1,2,3&#8230;8 range that it will be passing through. This ensures that we
+never have two cranes in the same x position &#8211; meaning no collisions.
+That, however, leaves a deadlock situation that we need to deal with.
+What if crane 1 is at x4 and needs to move to x6, while crane 2 is at
+x5 and needs to go x3? We are going to deal with reserve requests on a
+first-come-first-serve basis. If the request for crane 1 has come
+first, then we first check to make sure crane 2 isn&#8217;t moving (which
+means it is waiting), if it isn&#8217;t moving, we move crane 2 just out of
+the way of crane 1 (by directly calling the system calls). Crane 1 then
+reserves the appropriate x locations and starts moving. Immediately
+after the start of the movement of crane 1, we check to see if crane 2
+(or whichever crane is next) can now reserve all the locations it
+needs. Note that crane 1 has reserved all the locations that it will be
+passing through. If crane 2 can&#8217;t reserve all the locations it needs,
+then it waits. If it can, then it will reserve the locations and it too
+will start to move.<br>
+<br>
+<div style="margin-left: 40px;"><span style="font-style: italic;">Aside</span>:
+If crane 1 was in its way, the above process starts again. Basically,
+crane 2 will check to see if crane 1 is moving (meaning we can&#8217;t move
+it), if it isn&#8217;t moving, then crane 1 is moved out of the way just far
+enough, crane 2 reserves the x locations it needs and moves. <br>
+</div>
+<br>
+The pseudo-code below describes the algorithm:<br>
+<span style="font-family: monospace;"><br>
+request( source, dest )<br>
+{<br>
+&nbsp;&nbsp;&nbsp; int whichCrane = determineWhichCraneToAllocate(
+source, dest );<br>
+&nbsp;&nbsp;&nbsp; byte bitMask = setBitmask(source, dest);<br>
+<br>
+&nbsp;&nbsp;&nbsp; P(controllerlock);<br>
+<br>
+&nbsp;&nbsp;&nbsp; // Wait until we are able to reserve the
+x-coordinates we want<br>
+&nbsp;&nbsp;&nbsp; // Being able to means the x-coordinates we want are
+not reserved by the other crane<br>
+&nbsp;&nbsp;&nbsp; while(!ableToReserve(bitmask))<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; cond_wait(signalledDone,
+controllerlock); <br>
+<br>
+&nbsp;&nbsp;&nbsp; reserveLocations(bitmask);<br>
+&nbsp;&nbsp;&nbsp; moveOtherCranesOutOfWay();<br>
+&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp; V(controllerlock);<br>
+<br>
+}<br>
+<br>
+<br>
+signal_done( whichCrane )<br>
+{<br>
+&nbsp;&nbsp;&nbsp; P(controllerlock);<br>
+&nbsp;&nbsp;&nbsp; removeReservations(whichCrane);<br>
+&nbsp;&nbsp;&nbsp; signal(signalledDone);<br>
+&nbsp;&nbsp;&nbsp; V(controllerlock);<br>
+<br>
+}<br>
+</span><br>
+<a href="index.html">Back to index</a><br>
+</body>
+</html>

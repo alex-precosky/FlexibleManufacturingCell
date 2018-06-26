@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1"
+ http-equiv="content-type">
+  <title>Problem Statement</title>
+</head>
+<body>
+<div style="text-align: center;"><big><big><big>Revision History</big></big></big><br>
+</div>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top; text-align: center;"><span
+ style="font-weight: bold;">Date</span><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><span
+ style="font-weight: bold;">Issue</span><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><span
+ style="font-weight: bold;">Description</span><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><span
+ style="font-weight: bold;">Author</span><br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Mar. 6, 2004<br>
+      </td>
+      <td style="vertical-align: top;">V2004<br>
+      </td>
+      <td style="vertical-align: top;">Initial Creation<br>
+      </td>
+      <td style="vertical-align: top;">Alex, Brian, Mehdi, Navid<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><br>
+      </td>
+      <td style="vertical-align: top;"><br>
+      </td>
+      <td style="vertical-align: top;"><br>
+      </td>
+      <td style="vertical-align: top;"><br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><br>
+      </td>
+      <td style="vertical-align: top;"><big><br>
+      </big></td>
+      <td style="vertical-align: top;"><big><br>
+      </big></td>
+      <td style="vertical-align: top;"><big><br>
+      </big></td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><big><br>
+      </big></td>
+      <td style="vertical-align: top;"><big><br>
+      </big></td>
+      <td style="vertical-align: top;"><big><br>
+      </big></td>
+      <td style="vertical-align: top;"><big><br>
+      </big></td>
+    </tr>
+  </tbody>
+</table>
+<big><br style="font-weight: bold;">
+</big>
+<div style="text-align: center;">
+<h1><big><span style="font-weight: bold;">Problem Statement</span></big></h1>
+<br>
+<div style="text-align: left;">It is necessary to design a real-time
+system
+to manage an automatic production cell.&nbsp; A diagram of this system
+is shown in the following figure:<br>
+<br>
+<div style="text-align: center;"><img alt="Diagram of System"
+ src="system.jpg" style="width: 366px; height: 253px;"><br>
+<br>
+Diagram of an Automatic Production Cell<br>
+<br>
+<small><span style="font-style: italic;">Source: Task Description of a
+Flexible Production Cell with Real Time Properties</span></small><br>
+</div>
+<br>
+<br>
+The cell consists of four processing units, two cranes, and two
+conveyor
+belts. &nbsp;The system should be designed such that it would not be
+too
+difficult to add additional processing units or cranes.<br>
+<br>
+One of the conveyor belts is the feed belt, which brings new blanks
+into
+the system for processing. &nbsp;The belt may be turned on and off.
+&nbsp;A
+sensor near the end of the feed belt detects when a blank is in front
+of
+it. &nbsp;The other conveyor belt may not be turned on or off, but it
+contains
+a sensor to detect if there is a blank at its end, in which case no new
+blank
+should be placed onto the belt.<br>
+<br>
+At the end of the feed belt there is also a bar-code reader which
+will
+read special instructions for the processing of each individual blank.
+This
+includes the maximum time the blank may spend inside the system, the
+operations that must be performed on the blank, and optionally a
+designated order of the operations.<br>
+<br>
+There are two overhead cranes with magnetic grippers that can can pick
+up
+blanks and transport them between conveyor belts or processing
+units.&nbsp; The gripper may be lowered and raised.&nbsp;&nbsp; While
+the gripper is lowered, the crane may not move.&nbsp; The crane may
+move in either planer direction rather than just along one axis at a
+time.<br>
+<br>
+The transporting cranes travel along a shared overhead set of rails,
+and
+so care must be taken to ensure that two cranes never collide with each
+other.<br>
+<br>
+Processing units are one of two types: <br>
+<ul>
+  <li>Type 1 units must be started by the control program when a blank
+is
+in place, and shut off automatically when finished.&nbsp; A unit of
+this type might be a drill or a milling machine for example.<br>
+  </li>
+  <li>Type 2 units are always on, and so care must be taken to ensure
+that
+blanks are not left in these unit types longer than the maximum time
+specified
+on the blank's barcode.&nbsp; The typical example of a unit of this
+type is an oven.<br>
+  </li>
+</ul>
+Both unit types have a sensor to detect if a blank is present within
+the
+unit. &nbsp;They also have a sensor indicating whether the unit is on
+or
+off. &nbsp;Since type 2 units are always on, the type 2 unit's sensor
+will
+always return the on state.<br>
+<br>
+After a blank has been processed in all of the units that its barcode
+requested,
+it must be placed on the deposit belt.<br>
+<br>
+When started, the system can be assumed to be in the state such that
+there are no items are held by the cranes, and the feed belt is
+off.&nbsp; There may be units in the processing units.<br>
+<br>
+<a href="index.html">Back to index</a><br>
+</div>
+</div>
+</body>
+</html>

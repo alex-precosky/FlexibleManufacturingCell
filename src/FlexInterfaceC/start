@@ -1,0 +1,17 @@
+#!/bin/bash
+
+export CLASSPATH=$CLASSPATH:../FlexibleCell
+
+mkfifo /tmp/inputfifo
+mkfifo /tmp/outputfifo
+
+
+
+echo Start the controller 
+testControl < /tmp/outputfifo > /tmp/inputfifo &
+
+echo Start the Simulation
+java JavaSim -sync 200 >/tmp/outputfifo </tmp/inputfifo 
+
+rm /tmp/inputfifo
+rm /tmp/outputfifo

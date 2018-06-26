@@ -1,0 +1,726 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1"
+ http-equiv="content-type">
+  <title>Class Diagrams</title>
+</head>
+<body>
+<div style="text-align: center;"><big><big><big>Revision History</big></big></big><br>
+</div>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top; text-align: center;"><span
+ style="font-weight: bold;">Date</span><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><span
+ style="font-weight: bold;">Issue</span><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><span
+ style="font-weight: bold;">Description</span><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><span
+ style="font-weight: bold;">Author</span><br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Mar 21, 2004<br>
+      </td>
+      <td style="vertical-align: top;">V2004<br>
+      </td>
+      <td style="vertical-align: top;">Initial Writeup<br>
+      </td>
+      <td style="vertical-align: top;">Alex, Brian, Mehdi, Navid<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Mar 29, 2004<br>
+      </td>
+      <td style="vertical-align: top;">V2204.1<br>
+      </td>
+      <td style="vertical-align: top;">Function and attribute names
+changed to look like they would in C<br>
+      <br>
+Added Sensor_Data class.&nbsp; Stores sensor readings from the sensor
+polling thread.<br>
+      <br>
+Eliminated Crane class;&nbsp; Crane manipulation is all done by
+CraneController now.<br>
+      <br>
+Eliminated DestinaitionNode, Type1DestNode, and Type2DestNode
+classes.&nbsp; Blank destionations are now stored in FlexCodeStatus
+structs, as provided for us in flexInterface.h.&nbsp; Added notes to
+class 'blank' about the bitmask used for reserving units.<br>
+      <br>
+Eliminated FeedBelt class.&nbsp; All it did was wrap up the
+flexSetFeedBelt(ON) and flexSetFeedBelt(OFF) operations.<br>
+      <br>
+Eliminated DepositBeltSensor class.&nbsp; Its functionality is wrapped
+up in Sensor_Data now.<br>
+      <br>
+Put in an overall class diagram of all of the classes.<br>
+      <br>
+      </td>
+      <td style="vertical-align: top;">Alex, Brian, Mehdi, Navid<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><br>
+      </td>
+      <td style="vertical-align: top;"><big><br>
+      </big></td>
+      <td style="vertical-align: top;"><big><br>
+      </big></td>
+      <td style="vertical-align: top;"><big><br>
+      </big></td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><big><br>
+      </big></td>
+      <td style="vertical-align: top;"><big><br>
+      </big></td>
+      <td style="vertical-align: top;"><big><br>
+      </big></td>
+      <td style="vertical-align: top;"><big><br>
+      </big></td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<big><big><small>This document contains UML diagrams for the classes
+that are used by the system.&nbsp; As implementation will be performed
+using C, classes are to be implemented without full language
+support.&nbsp; Class methods can be set up by using C structs which
+contain function pointers.&nbsp; Functions, function arguments, and
+attributes are described.&nbsp; C header file names are also provided.</small><span
+ style="font-weight: bold;"><br>
+<br>
+Table
+Of Contents</span></big></big><br>
+<br>
+<ol>
+  <li><a href="#overall">Overall class diagram</a><br>
+  </li>
+  <li><a href="#BlankBuffer">BlankBuffer</a></li>
+  <li><a href="#blankNode">blankNode</a></li>
+  <li><a href="#CraneController">CraneController</a></li>
+  <li><a href="#Blank">Blank</a></li>
+  <li><a href="#BarcodeReader">BarcodeReader</a></li>
+  <li><a href="#ProcessUnitController">ProcessUnitController</a></li>
+  <li><a href="#processingunit">ProcessingUnit</a></li>
+  <li><a href="#SensorData">SensorData</a><br>
+  </li>
+</ol>
+<br>
+<h3>Overall class diagram:<a name="overall"></a></h3>
+The following is an overall class diagram of the system:<br>
+<br>
+<img alt="Overall UML Class Diagram" src="classdiagrams/overall.jpg"
+ style="width: 807px; height: 495px;"><br>
+<br>
+<br>
+<hr style="width: 100%; height: 2px;"><big><span
+ style="font-weight: bold;">&lt;BlankBuffer.h&gt;</span></big><br>
+<span style="font-weight: bold;">BlankBuffer<a name="BlankBuffer"></a> </span><span
+ style="font-weight: bold;"></span><br>
+<span style="font-weight: bold;">blankNode<a name="blankNode"></a> </span><span
+ style="font-weight: bold;"></span><br>
+<span style="font-weight: bold;"><br>
+</span><img alt="BlankBuffer UML Class Diagram"
+ src="classdiagrams/blankbuffer.jpg" style="width: 550px; height: 94px;"><br>
+<span style="font-weight: bold;"></span><br>
+<br>
+This is a synchronisation object used between certain stages in the
+pipelines.&nbsp; The buffer is implemented as a singly linked
+list.&nbsp; Its nodes hold blank objects, as well as an optional
+'heldByCrane', for buffer blanks that are held by cranes so that the
+next stage in the pipeline knows which crane holds the blank.<br>
+<br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;"><span style="font-weight: bold;">Function</span><br>
+      </td>
+      <td style="vertical-align: top;"><span style="font-weight: bold;">Description</span><br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><code>void putBlank( BlankBuffer
+*theBuffer, blank* theBlank, int heldByCrane )<br>
+      </code> </td>
+      <td style="vertical-align: top;">Inserts a new blank into the
+buffer.&nbsp; heldByCrane is used if the blank is held by a crane, and
+the next thread in the pipeline needs to know which one.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><code>void getBlank( BlankBuffer
+*theBuffer, blank** theBlank, int* heldByCrane )<br>
+      </code> </td>
+      <td style="vertical-align: top;">Retrieves a blank from the
+buffer, and which crane it is held in if it is held by a crane.&nbsp;
+Blocks until a blank is put into the buffer if the buffer is empty.<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br style="font-weight: bold;">
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top; font-weight: bold;">Attribute<br>
+      </td>
+      <td style="vertical-align: top;"><span style="font-weight: bold;">Description</span><br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><code>pthread_mutex_t* lock<br>
+      </code> </td>
+      <td style="vertical-align: top;">Provides mutual exclusion<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><code>pthread_cond_t*
+itemAvailable<br>
+      </code> </td>
+      <td style="vertical-align: top;">Condition variable signaled
+when item placed in buffer<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><code>int numItems<br>
+      </code> </td>
+      <td style="vertical-align: top;">Number of items in the buffer<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><code>blankNode *blankList<br>
+      </code> </td>
+      <td style="vertical-align: top;">A linked list of blankNode
+objects which package the items held in the buffer<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<span style="font-weight: bold;"></span><span style="font-weight: bold;"><br>
+<br>
+</span>
+<hr style="width: 100%; height: 2px;"><span style="font-weight: bold;"><big>&lt;BlankBuffer.h&gt;<br>
+BlankNode<br>
+<br>
+<img alt="BlankNode UML Class Diagram" src="classdiagrams/blankNode.jpg"
+ style="width: 153px; height: 60px;"><br>
+<br>
+<span style="font-weight: bold;"></span></big></span><big>A node of the
+BlankBuffer's linked list.&nbsp; Has a pointer to a blank object, an
+integer storing the number of the crane that holds the blank, and a
+pointer to the next node in the list.</big><span
+ style="font-weight: bold;"><big><span style="font-weight: bold;"></span><br>
+<br>
+</big></span>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;"><span style="font-weight: bold;">Attribute</span><br>
+      </td>
+      <td style="vertical-align: top;"><span style="font-weight: bold;">Description</span><br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><code>blank* theBlank<br>
+      </code></td>
+      <td style="vertical-align: top;">A <span
+ style="font-style: italic;">blank</span> object that is stored in the
+buffer.</td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><code>int heldByCrane<br>
+      </code></td>
+      <td style="vertical-align: top;">If the blank is held by a crane,
+this stores the number of the crane that is holding it, either 1 or
+2.&nbsp;
+Otherwise, this stores -1.</td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><code>blankNode* next<br>
+      </code></td>
+      <td style="vertical-align: top;">Pointer to the next blankNode in
+the linked list. NULL if last node.<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<span style="font-weight: bold;"></span><span style="font-weight: bold;"><br>
+</span>
+<hr style="width: 100%; height: 2px;"><span style="font-weight: bold;"><big>&lt;CraneController.h&gt;</big>
+</span><br>
+<span style="font-weight: bold;">CraneController<a
+ name="CraneController"></a> </span><span style="font-weight: bold;"></span><br>
+<br>
+The crane controller is the public interface to the cranes.&nbsp;
+Cranes are requested for a job with request, and are at the disposal of
+the caller until signal_done is called.&nbsp; The crane controller will
+send commands to the flexInterface library as needed.<br>
+<br>
+<img alt="CraneController UML Class Diagram"
+ src="classdiagrams/cranecontroller.jpg"
+ style="width: 366px; height: 138px;"><br>
+<br>
+<br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;"><span style="font-weight: bold;">Attribute</span><br>
+      </td>
+      <td style="vertical-align: top;"><span style="font-weight: bold;">Description</span><br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><code>pthread_mutex_t
+*controllerLock<br>
+      </code></td>
+      <td style="vertical-align: top;">lock for request and
+signalCraneDone<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><code>pthread_cond_t
+*signalledDone<br>
+      </code></td>
+      <td style="vertical-align: top;">Used by request and
+signalCraneDone.&nbsp; Signalled by signalCraneDone to wake up a thread
+waiting to request a crane<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><code>unsigned char bitMask1<br>
+      </code></td>
+      <td style="vertical-align: top;">The x positions reserved by
+crane 1<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><code>unsigned char bitMask2<br>
+      </code></td>
+      <td style="vertical-align: top;">The x positions reserved by
+crane 2<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><code>Sensor_Data *sensorData<br>
+      </code></td>
+      <td style="vertical-align: top;">Pointer to the Sensor_Data
+object of use in member functions that need access to sensor data.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><code>CraneController::craneArray<br>
+      </code> </td>
+      <td style="vertical-align: top;">Dynamic array holding the two
+cranes in the system.<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<table style="text-align: left; width: 907px; height: 124px;" border="1"
+ cellpadding="2" cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;"><span style="font-weight: bold;">Function</span><br>
+      </td>
+      <td style="vertical-align: top;"><span style="font-weight: bold;">Description</span><br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><code>int request(
+CraneController *CController,int sourceX, int sourceY, int destX, int
+destY )<br>
+      </code> </td>
+      <td style="vertical-align: top;">Requests a crane for use in
+transporting from <span style="font-style: italic;">source</span> to <span
+ style="font-style: italic;">dest</span>.&nbsp; The crane will give a
+crane that can perform that move without colliding with the other
+crane, once such a crane becomes available. (i.e. block until
+then.)&nbsp; The supplementary
+specification describes this process in more detail.&nbsp; Returns the
+number identifier of the crane that is at the caller's disposal.&nbsp;
+It is up to the caller not to move the crane outside of the range
+between <span style="font-style: italic;">source</span> and <span
+ style="font-style: italic;">dest</span>, or else collision could occur.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><code>void move_xy(struct
+CraneController *CController, int whichCrane, int destX, int destY )<br>
+      </code> </td>
+      <td style="vertical-align: top;">Moves the specified crane to the
+desired x/y coordinate.&nbsp;&nbsp; <br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><code>void put(struct
+CraneController *CController, int whichCrane)<br>
+      </code> </td>
+      <td style="vertical-align: top;">For the specified crane, lower
+the gripper, turn off the magnet, and raise the gripper.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><code>void get(struct
+CraneController *CController, int whichCrane)<br>
+      </code> </td>
+      <td style="vertical-align: top;">For the specified crane, lower
+the gripper, turn on the magnet, and raise the gripper.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><code>void
+signalCraneDone(CraneController *CController,int whichCrane)<br>
+      </code> </td>
+      <td style="vertical-align: top;">Signal the controller that we
+are finished with the specified crane, and it may be requested by
+someone else.<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<span style="font-weight: bold;"></span><br>
+<hr style="width: 100%; height: 2px;"><br>
+<big><span style="font-weight: bold;">&lt;blank.h&gt;</span></big><br>
+<span style="font-weight: bold;">blank<a name="Blank"></a><br>
+<br>
+</span>Blank objects are used for passing information about a blank
+along the
+thread pipeline.&nbsp; The real physical blanks are passed along
+through the
+physical system, and so are their digital representation in the
+computer system.&nbsp; The blank holds information scanned by the
+barcode
+reader describing the operations and time constratins on these
+operations that the blank must go through.<br>
+<br>
+<br>
+<img alt="blank UML Class Diagram" src="classdiagrams/blank.jpg"
+ style="width: 240px; height: 60px;"><br>
+<br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;"><span style="font-weight: bold;">Attribute</span><br>
+      </td>
+      <td style="vertical-align: top;"><span style="font-weight: bold;">Description</span><br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><code>FlexCodeStatus cs<br>
+      </code> </td>
+      <td style="vertical-align: top;">The total time the blank is
+allowed to spend in the system.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><code>int index<br>
+      </code> </td>
+      <td style="vertical-align: top;">A linked list of information of
+the processing stages that the blank needs to go through.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><code>unsigned char bitmask<br>
+      </code> </td>
+      <td style="vertical-align: top;">A bitmask stating the processing
+units this blank needs to use.&nbsp; I.e. 00000011 mean the blank needs
+units 2 and 1.&nbsp; Since there are only 4 processing units, only the
+4 least significant bits are ever used.<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+<hr style="width: 100%; height: 2px;"><br>
+<span style="font-weight: bold;">&lt;BarcodeReader.h&gt;</span><br>
+<span style="font-weight: bold;">BarcodeReader<a name="BarcodeReader"></a><br>
+<br>
+</span>The barcode reader that is responsible for reading barcodes off
+of blanks on the end of the feed belt and instantiating new blank
+objects with this information.<span style="font-weight: bold;"><br>
+<br>
+</span><img alt="BarcodeReader UML Class Diagram"
+ src="classdiagrams/BarcodeReader.jpg"
+ style="width: 161px; height: 49px;"><br>
+<br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;"><span style="font-weight: bold;">Function</span><br>
+      </td>
+      <td style="vertical-align: top;"><span style="font-weight: bold;">Description</span><br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><code>blank* ReadBarcode()<br>
+      </code> </td>
+      <td style="vertical-align: top;">Reads the barcode from the blank
+in front of the barcode reader, and places the information stored
+within into a new blank object.<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+<hr style="width: 100%; height: 2px;"><br>
+<big><span style="font-weight: bold;">&lt;ProcessingUnitController.h&gt;<br>
+</span></big><span style="font-weight: bold;">ProcessUnitController<a
+ name="ProcessUnitController"></a><br>
+</span><br>
+The ProcessUnitController is the public interface to the processing
+units.&nbsp; The controller sends messages to the individual processing
+units as necessary.&nbsp; A thread handling new blanks entering the
+system will reserve units for the blanks.&nbsp; <br>
+<br>
+<img alt="ProcessingUnitController UML Class Diagram"
+ src="classdiagrams/processunitcontroller.jpg"
+ style="width: 647px; height: 110px;"><br>
+<br>
+<br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;"><span style="font-weight: bold;">Function</span><br>
+      </td>
+      <td style="vertical-align: top;"><span style="font-weight: bold;">Description</span><br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><code>ProcessingUnitController*
+newProcessingUnitController()<br>
+      </code></td>
+      <td style="vertical-align: top;">Allocates memory and other
+resrouces for the new processing unit controller.&nbsp; Returns a
+pointer to the newly created object.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><code>void reserveUnits(
+ProcessingUnitController* theController,&nbsp; unsigned char bitmask )<br>
+      </code> </td>
+      <td style="vertical-align: top;">Reserve a set of units for
+processing.&nbsp; Called before a blank enters the system.&nbsp; Blocks
+until the units are guaranteed to not be used by another blank.&nbsp;
+See the resource allocation section of the supplementary specification
+for more information.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><code>void signalPUCDone(
+ProcessingUnitController* theController, unsigned char bitmask )<br>
+      </code> </td>
+      <td style="vertical-align: top;">Let the controller know that a
+blank is finished with the specified units.&nbsp;&nbsp; See the
+resource allocation section of the supplementary specification for more
+information.<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;"><span style="font-weight: bold;">Attribute</span><br>
+      </td>
+      <td style="vertical-align: top;"><span style="font-weight: bold;">Description</span><br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><code>unsigned char reserveByte<br>
+      </code> </td>
+      <td style="vertical-align: top;">Specifies which units are
+reserved.&nbsp;&nbsp; See the resource allocation documentation for
+more information.&nbsp; Is a bitmask of currently reserved units.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><code>pthread_mutex_t* lock<br>
+      </code> </td>
+      <td style="vertical-align: top;">A lock for mutual exclusion<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><code>pthread_cond_t* signalDone<br>
+      </code> </td>
+      <td style="vertical-align: top;">Signalled when a blank is
+finished with the system and has called signalDone()<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><code>ProcessingUnit
+*processingUnits<br>
+      </code> </td>
+      <td style="vertical-align: top;">Dynamically allocated array of
+the four ProcessingUnit
+objects<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+<hr style="width: 100%; height: 2px;"><br>
+<big><span style="font-weight: bold;">&lt;ProcessingUnit.h&gt;</span></big><br>
+<span style="font-weight: bold;">ProcessingUnit<a name="processingunit"></a></span><br>
+<br>
+<img alt="ProcessingUnit UML Class Diagram"
+ src="classdiagrams/processingunit.jpg"
+ style="width: 204px; height: 71px;"><br>
+<br>
+One of the processing units managed by the
+ProcessingUnitController.&nbsp; Just holds information about itself.<br>
+<br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;"><span style="font-weight: bold;">Attribute</span><br>
+      </td>
+      <td style="vertical-align: top;"><span style="font-weight: bold;">Description</span><br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><code>int posX<br>
+      </code></td>
+      <td style="vertical-align: top;">The x location of the processing
+unit<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><code>int posY<br>
+      </code></td>
+      <td style="vertical-align: top;">The y location of the processing
+unit<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><code>int unitType<br>
+      </code></td>
+      <td style="vertical-align: top;">The type of processing unit, 1
+or 2<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><code>int unitNum<br>
+      </code></td>
+      <td style="vertical-align: top;">The number identifier of the
+unit, 1, 2, 3, or 4<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+<br>
+<hr style="width: 100%; height: 2px;"><br>
+<br>
+<big><span style="font-weight: bold;">&lt;SensorData.h&gt;</span></big><br>
+<span style="font-weight: bold;">Sensor_Data<a name="SensorData"></a><br>
+<br>
+</span>The system sensors are regularly polled, and have their
+information stored here.&nbsp; Used by the threads, and extensively by
+the CraneController class.<span style="font-weight: bold;"><br>
+<br>
+<img alt="Sensor_Data UML Class Diagram"
+ src="classdiagrams/sensordata.jpg" style="width: 502px; height: 92px;"><br>
+<br>
+</span>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;"><span style="font-weight: bold;">Function</span><br>
+      </td>
+      <td style="vertical-align: top;"><span style="font-weight: bold;">Description</span><br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><code>set_Sensor_Data(struct
+Sensor_Data *sensorData, int Belt_Sensor[2], int
+Work_Station_Sensor[Number_Of_Processing_Units][2], int
+Crane_Sensor[3][Number_Of_Cranes][Number_Of_X_Sensors])</code><br>
+      </td>
+      <td style="vertical-align: top;">Copies the parameters into the
+matching member variables.&nbsp; This functions is probably only called
+by the thread that polls the sensors periodically.<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<span style="font-weight: bold;"><br>
+<br>
+</span>
+<table style="text-align: left; width: 907px; height: 52px;" border="1"
+ cellpadding="2" cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;"><span style="font-weight: bold;">Attribute</span><br>
+      </td>
+      <td style="vertical-align: top;"><span style="font-weight: bold;">Description</span><br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><code>pthread_mutex_t *lock<br>
+      </code> </td>
+      <td style="vertical-align: top;">Lock to make sure two callers
+don't try to update the sensor data at once<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><code>int Belt_Sensor[2]<br>
+      </code> </td>
+      <td style="vertical-align: top;">The sensors of the two belts.
+Index [0] is the feed belt, index [1] is the deposit belt.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><code>int
+Work_Station_Sensor[Number_Of_Processing_Units][2]<br>
+      </code> </td>
+      <td style="vertical-align: top;">Sensors for the work
+stations.&nbsp; First index dimension is the processing unit index, 0,
+1, 2, or 3.&nbsp; The second dimension index [0] is if the unit is
+occupied, and index [1] is if the unit is on.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><code>int
+Crane_Sensor[3][Number_Of_Cranes][Number_Of_X_Sensors]<br>
+      </code> </td>
+      <td style="vertical-align: top;">Sensors for the crane
+positions.&nbsp; First dimension is either [0] for X, [1] for Y, [2]
+for Z.&nbsp; Second dimension is [0] for first crane, [1] for second
+crane.&nbsp; Third dimension has one index for each sensor in either
+the X, Y, or Z direction.&nbsp; Note that there is only one set of X
+position sensors; it is accessed by indexing the second dimension as
+[0], and these sensors apply to both cranes.<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<span style="font-weight: bold;"><br>
+<br>
+</span><br>
+</body>
+</html>

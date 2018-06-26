@@ -1,0 +1,178 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1"
+ http-equiv="content-type">
+  <title>Process Descriptions</title>
+</head>
+<body>
+<div style="text-align: center;"><big><big><big>Revision History</big></big></big><br>
+</div>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top; text-align: center;"><span
+ style="font-weight: bold;">Date</span><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><span
+ style="font-weight: bold;">Issue</span><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><span
+ style="font-weight: bold;">Description</span><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><span
+ style="font-weight: bold;">Author</span><br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Mar 21, 2004<br>
+      </td>
+      <td style="vertical-align: top;">V2004<br>
+      </td>
+      <td style="vertical-align: top;">Initial Writeup<br>
+      </td>
+      <td style="vertical-align: top;">Alex, Brian, Mehdi, Navid<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Mar 24, 2004<br>
+      </td>
+      <td style="vertical-align: top;">V2004.1<br>
+      </td>
+      <td style="vertical-align: top;">Added sensor polling thread<br>
+      </td>
+      <td style="vertical-align: top;">Alex<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><br>
+      </td>
+      <td style="vertical-align: top;"><big><br>
+      </big></td>
+      <td style="vertical-align: top;"><big><br>
+      </big></td>
+      <td style="vertical-align: top;"><big><br>
+      </big></td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><big><br>
+      </big></td>
+      <td style="vertical-align: top;"><big><br>
+      </big></td>
+      <td style="vertical-align: top;"><big><br>
+      </big></td>
+      <td style="vertical-align: top;"><big><br>
+      </big></td>
+    </tr>
+  </tbody>
+</table>
+<big><br style="font-weight: bold;">
+</big>
+<big><big><span style="font-weight: bold;">Table
+Of Contents<br>
+</span></big></big>
+<ol>
+  <li><a href="#Main">Main Thread</a></li>
+  <li><a href="#feedbeltarrival">FeedBeltArrivalHandlerThread</a></li>
+  <li><a href="#taketounit">TakeBlankToUnitThread</a></li>
+  <li><a href="#process">ProcessingUnitThread</a></li>
+  <li><a href="#taketodepositbelt">TakeBlankToDepositBeltThread</a></li>
+  <li><a href="#SensorPollThread">SensorPollThread</a><br>
+  </li>
+</ol>
+<br>
+<br>
+This file specifies the various threads of execution of the control
+system.&nbsp; These are all specified in the <a
+ href="UseCaseModel.html">use case</a> models, except for the main
+thread, which is responsible for startup of the control system.&nbsp;
+The C source file which contains the code for each of these threads is
+specified.<br>
+<br>
+&lt;main.c&gt;<br style="font-weight: bold;">
+<span style="font-weight: bold;">Main Thread<a name="Main"></a></span><br>
+<br>
+<br>
+The main thread of execution is what runs when the system starts
+up.&nbsp; It will set up the signal handler for SIGALRM signals that
+are emitted when a blank triggers the feed belt sensor.&nbsp; Then, it
+will create all of the sync objects that the system needs, as shown in
+the pipeline diagrams with the use cases.&nbsp; Finally, it will start
+the threads corresponding to the active classes shown in the pipeline
+diagrams.&nbsp; These threads will be implemented as POSIX
+threads.&nbsp; At this point, the system will be ready to process
+blanks arriving on the feed belt.<br>
+<br>
+&lt;FeedbeltArrivalThd.c&gt;<br>
+<span style="font-weight: bold;">FeedBeltArrivalHandlerThread<a
+ name="feedbeltarrival"></a></span><br>
+<br>
+This thread was specified in use-case U1.&nbsp; This thread is
+triggered to run when the semaphore newItem has been signalled.&nbsp;
+The thread will then stop the feed belt immediately, then request a
+barcode read.&nbsp; With the barcode information read, it will
+instantiate a new <span style="font-style: italic;">blank</span>
+object with the information stored on the blank.&nbsp; Next, the
+processing units are reserved, as specified in the resource allocation
+section of the <a href="SupplementarySpecification.html">supplementary
+specification</a>.&nbsp; Next, a crane is requested, which picks up the
+blank.&nbsp; With the blank off the feed belt, the belt is started
+again.&nbsp; The blank object, as well as the number of the crane that
+holds the blank (should always be the number of the leftmost crane,
+since only this crane can reach the feed belt), are placed into a
+buffer of blanks that are held by a crane that need moving to a
+processing unit.<br>
+<br>
+&lt;BlankToUnitThd.c&gt;<br>
+<span style="font-weight: bold;">TakeBlankToUnitThread<a
+ name="taketounit"></a></span><br>
+<br>
+This thread was specified in use-case U2.&nbsp; Blank objects are
+retrived from the buffer of blanks that are held by a crane and need to
+be moved to a processing unit.&nbsp; The buffer also stores the number
+of the crane that holds each blank.&nbsp; Two of these threads operate
+in paralell, since up to two blanks could possibly be moved in this
+fashion at a time.&nbsp; The crane is moved to its destination, and the
+blank is placed into the processing unit.&nbsp; The blank object is
+placed in a buffer of blanks that have been placed in a processing
+unit, and await processing.&nbsp; The crane is signalled that we are
+done with it for now.<br>
+<br>
+&lt;ProcessingUnitThd.h&gt;<br>
+<span style="font-weight: bold;">ProcessingUnitThread<a name="process"></a></span><br>
+<br>
+This thread was specified in use-case U3.&nbsp; Blank objects are
+retreived from a buffer of blanks that have been placed in a processing
+unit, and await processing.&nbsp; The processing unit that the blank is
+in&nbsp; is switched on, and then the thread sleeps for the minimum
+processing time.&nbsp; A crane is then reserved, which comes and picks
+up the blank.&nbsp; Then, depending on whether the blank needs to go to
+another unit, or the deposit belt, its object is placed in either a
+buffer of blanks that are held by a crane and need to go to another
+unit, or a buffer of blanks that are held by a crane and need to go do
+the deposit belt.<br>
+<br>
+&lt;BlankToDepositThd.c&gt;<br>
+<span style="font-weight: bold;">TakeBlankToDepositBeltThread<a
+ name="taketodepositbelt"></a><br>
+</span><br>
+This thread was specified in use-case U4.&nbsp; This thread retreives
+blanks from a buffer of blanks that are held by a crane and need to go
+do the deposit belt.&nbsp; Once it is assured that the start of the
+deposit belt is free of obstruction, the crane is moved to the deposit
+belt, and the blank is placed on the belt.&nbsp; Then, the crane
+controller is notified that we are finished with&nbsp; the crane for
+now.<br>
+<br>
+<br>
+&lt;SensorPollThread.c&gt;<br>
+<span style="font-weight: bold;">SensorPollThread<a
+ name="SensorPollThread"></a></span><br>
+<br>
+This thread keeps the SensorData object up to date with the latest
+sensor information by pollling the sensors at regular intervals.<br>
+<br>
+<br>
+</body>
+</html>

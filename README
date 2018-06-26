@@ -1,0 +1,50 @@
+Contained in here is our completed implementation for EECE494 assignment 6.
+
+For some concluding remarks on the implementation, see the HTML documentation.
+
+About directory layout:
+-----------------------
+
+There are two main directories: doc, and src.  The HTML documentation
+is in doc, and all of the source code is in src.  Inside src, there
+are three main subdirectories: FlexInterfaceC, FlexibleCell, and
+ControlSystem.  FlexInterfaceC holds the source to the library
+that provides the interface to the java simulator.  The java simulator's
+source is in FlexibleCell.   Our own software, the control system,
+is in directory ControlSystem.
+
+In summary, the major directories are:
+
+doc
+src
+src/FlexibleCell
+src/FlexInterfaceC
+src/ControlSystem
+
+
+To build project:
+-----------------
+
+cd into the src directory, and run ./configure, then make
+The java simulator, flexInterface library, and our control system will all
+be built.
+
+To execute:
+-----------
+
+cd into src/ControlSystem directory, and run ./start
+The simulator will be started along with our control system.  The
+script will set any needed environment variables. Load
+some blanks and watch it go!
+
+To view documentation:
+----------------------
+
+Documentation is in HTML format, and begins with doc/index.html
+
+--------------
+Alex Precosky
+Brian Dowling
+Mehdi Bahrami
+Navid Boostani
+--------------

@@ -1,0 +1,180 @@
+-------
+NOTE: This program required java version >= 1.2 
+check version with: java -version
+
+Please set proper PATH and CLASSPATH (including your FlexibleCell path)
+
+You might have to set you your environment properly 
+in Unix/Linux (with csh)
+
+setenv CLASSPATH=/usr/lib/j2e/1.4/lib:../FlexibleCell
+setenv PATH=/usr/lib/j2e/1.4/lib:$PATH
+
+e.g. /usr/lib/j2e/1.4 might vary check /opt/java-1.4
+check environment with: printenv CLASSPATH
+-------
+This directory contains a simulation of a flexible production cell.
+
+version 1.6  22.03.2003 Florian Vogt <fvogt@ece.ubc.ca> 
+
+- java version update for j2sdk-1.4 (>1.2)
+  Problem with import command for java-1.4 needs fixing 
+  see http://java.sun.com/j2se/1.4/compatibility.html
+  Solution: comment unnamed classes 
+  does not work properly with java 1.1 and 1.2 :<
+
+-minor gui fix 
+
+version 1.5  06.02.1997
+
+
+To Compile:   make clean
+              make all
+
+To compile configuration:  make config
+
+
+
+The following parts belong to it:
+
+1. The simulation itself:
+-------------------------
+
+     Anim.class
+     Belt.class
+     Belt.java
+     Carrier.class
+     Code.class
+     Code.java
+     CodeFrame.class
+     CodeFrame.java
+     CodeSensor.class
+     CodeSensor.java
+     CollisionException.class
+     CollisionException.java
+     GrObject.class
+     GrObject.java
+     IO.class
+     Interface.class
+     Interface.java
+     Item.class
+     Item.java
+     JavaSim.class
+     JavaSim.java
+     Mark.class
+     Mark.java
+     Portal.class
+     Portal.java
+     PortalArm.class
+     PortalArm.java
+     PositionMatrix.class
+     PositionMatrix.java
+     Queue.class
+     Queue.java
+     Sensor.class
+     Sensor.java
+     SimErrorException.class
+     SimErrorException.java
+     SimState.class
+     SimState.java
+     Station.class
+     Station.java
+     TransBelt.class
+     TransBelt.java
+     TranslationMatrix.class
+     TranslationMatrix.java
+     WorkItem.class
+     WorkItem.java
+     WorkStation.class
+     WorkStation.java
+
+
+2. The configuration file
+-------------------------
+
+     config.class
+     config.java
+
+3. The controll panel:
+----------------------
+
+     portPanel.class	
+     transPanel.class
+     vgear.class	
+     vgear.java		; starts the control panel
+     workPanel.class
+
+4. The simulation startprogram:
+-------------------------------
+
+     start		; starts the simulation (Unix)
+
+5. An example item:
+-------------------
+Item1
+
+
+All programs are written using JAVA.
+
+
+
+Starting the simulation 
+=======================
+
+Unix
+----
+
+To start the simulation with the controll panel just enter :  start
+
+
+Additional options (Unix + Windows NT):
+---------------------------------------
+
+-sync [SYNCDELAY]; causes the simulation to run in the synchrone mode
+		   (the default is asynchrone). The simulation does
+		   not run while the contoller is working. SYNCDELAY
+		   is an optional parameter which determines the time
+		   of one clock cycle [ms] (default is 70 ms).
+
+Configuration File:
+===================
+
+The simulation can be configured by changing the file 
+
+    config.java
+
+After editing this file, the class config.java must be compiled again
+(command: javac config.java)
+
+
+
+
+		 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
