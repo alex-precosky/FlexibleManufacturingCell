@@ -10,6 +10,8 @@ The two robots can't cross over each other.
 The conveyors can be started and stopped, and there are photoelectric sensors
 for detecting the presnce of objects on conveyors and work cells.
 
+The original project documentation showing its underlying design can be seen at [OriginalDocs](http://htmlpreview.github.io/?https://github.com/alex-precosky/FlexibleManufacturingCell/blob/master/doc/index.html)
+
 ![SimWindow](doc/screenshots/Sim1.png)
 
 # Acknoledgements
